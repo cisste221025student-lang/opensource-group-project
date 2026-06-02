@@ -1,0 +1,11 @@
+{
+  "name": "simple-calculator-node",
+  "version": "1.0.0",
+  "description": "Group project for Open Source Software Development",
+  "main": "calculator.js",
+  "scripts": {
+    "start": "node calculator.js"
+  },
+  "author": "Your Group Name",
+  "license": "MIT"
+}
