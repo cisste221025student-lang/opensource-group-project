@@ -11,13 +11,33 @@ let history = [];
 function add(x, y) { return x + y; }
 function subtract(x, y) { return x - y; }
 function multiply(x, y) { return x * y; }
-function divide(x, y) {
-    if (y === 0) {
-        return chalk.red("Error: Cannot divide by zero");
-    }
-    return x / y;
-}
+function divide(a, b) {
+    const numA = validateNumber(a);
+    const numB = validateNumber(b);
 
+    if (!numA.valid) return numA.message;
+    if (!numB.valid) return numB.message;
+
+    if (numB.value === 0) {
+        return "Error: Cannot divide by zero!";
+    }
+
+    return numA.value / numB.value;
+}
+// Muhammad Adam - CIS/STE/22/1031
+function validateNumber(value) {
+    const num = Number(value);
+
+    if (value === null || value === undefined || value === "") {
+        return { valid: false, message: "Input cannot be empty!" };
+    }
+
+    if (isNaN(num)) {
+        return { valid: false, message: "Invalid number entered!" };
+    }
+
+    return { valid: true, value: num };
+}
 // 📐 UI Helper: Draws a perfectly padded line inside the box
 function drawLine(text, colorizer = chalk.white) {
     let paddedText = text;
