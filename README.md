@@ -4,4 +4,5 @@ A collaborative command-line calculator built by 17 students as part of Open Sou
 
 ## How to Run
 ```bash
-npm start
+node Calculator.js
+
