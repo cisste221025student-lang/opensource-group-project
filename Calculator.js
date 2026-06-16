@@ -39,15 +39,40 @@ function subtract(x, y) {
     return x - y;
 }
 
+// Member 2 Contribution
+// Improved Multiplication Function
 function multiply(x, y) {
-    return x * y;
+    const result = x * y;
+
+    console.log(
+        chalk.blue(`\nℹ️ Multiplying ${x} × ${y}`)
+    );
+
+    return result;
 }
 
+// Member 2 Contribution
+// Improved Division Function with Enhanced Zero Check
 function divide(x, y) {
+
     if (y === 0) {
-        return "Error: Cannot divide by zero";
+
+        console.log(
+            chalk.red(
+                "\n❌ Error: Division by zero is not allowed."
+            )
+        );
+
+        return "Undefined";
     }
-    return x / y;
+
+    const result = x / y;
+
+    console.log(
+        chalk.blue(`\nℹ️ Dividing ${x} ÷ ${y}`)
+    );
+
+    return result;
 }
 
 // ================= UI HELPER =================
