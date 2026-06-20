@@ -39,40 +39,25 @@ function subtract(x, y) {
     return x - y;
 }
 
-// Member 2 Contribution
-// Improved Multiplication Function
 function multiply(x, y) {
-    const result = x * y;
-
-    console.log(
-        chalk.blue(`\nℹ️ Multiplying ${x} × ${y}`)
-    );
-
-    return result;
+    return x * y;
 }
 
-// Member 2 Contribution
-// Improved Division Function with Enhanced Zero Check
 function divide(x, y) {
-
     if (y === 0) {
-
-        console.log(
-            chalk.red(
-                "\n❌ Error: Division by zero is not allowed."
-            )
-        );
-
-        return "Undefined";
+        return "Error: Cannot divide by zero";
     }
+    return x / y;
+}
+function power(x, y) {
+    return Math.pow(x, y);
+}
 
-    const result = x / y;
-
-    console.log(
-        chalk.blue(`\nℹ️ Dividing ${x} ÷ ${y}`)
-    );
-
-    return result;
+function squareRoot(x) {
+    if (x < 0) {
+        return "Error: Cannot calculate square root of a negative number";
+    }
+    return Math.sqrt(x);
 }
 
 // ================= UI HELPER =================
@@ -111,9 +96,11 @@ function showMenu() {
     drawLine("  2 ➜ Subtraction (-)", chalk.blue);
     drawLine("  3 ➜ Multiplication (×)", chalk.blue);
     drawLine("  4 ➜ Division (÷)", chalk.blue);
-    drawLine("  5 ➜ View History", chalk.blue);
-    drawLine("  6 ➜ Clear History", chalk.blue);
-    drawLine("  7 ➜ Exit", chalk.blue);
+    drawLine("  5 ➜ Power (^)", chalk.blue);
+drawLine("  6 ➜ Square Root (√)", chalk.blue);
+drawLine("  7 ➜ View History", chalk.blue);
+drawLine("  8 ➜ Clear History", chalk.blue);
+drawLine("  9 ➜ Exit", chalk.blue);
 
     if (history.length > 0) {
         console.log(chalk.cyan("╟" + "─".repeat(38) + "╢"));
@@ -157,11 +144,11 @@ function askQuestion() {
     showMenu();
 
     rl.question(
-        chalk.magenta("👉 Enter your choice (1-7): "),
+        chalk.magenta("👉 Enter your choice (1-9): "),
         (choice) => {
 
             // Exit
-            if (choice === "7") {
+            if (choice === "9") {
                 console.log(
                     chalk.yellow(
                         "\n👋 Thanks for using the calculator!"
@@ -172,7 +159,7 @@ function askQuestion() {
             }
 
             // View History
-            if (choice === "5") {
+            if (choice === "7") {
                 showHistory();
 
                 return rl.question(
@@ -184,16 +171,60 @@ function askQuestion() {
             }
 
             // Clear History
-            if (choice === "6") {
+            if (choice === "8") {
                 clearHistory();
                 return setTimeout(
                     askQuestion,
                     1200
                 );
             }
+            if (choice === "6") {
+
+    rl.question(
+        chalk.yellow("Enter a number: "),
+        (num) => {
+
+            num = parseFloat(num);
+
+            if (isNaN(num)) {
+                console.log(
+                    chalk.red("\n❌ Please enter a valid number.\n")
+                );
+
+                return setTimeout(
+                    askQuestion,
+                    1200
+                );
+            }
+
+            const result = squareRoot(num);
+            const output = `√${num} = ${result}`;
+
+            history.push(output);
+            saveHistory();
+
+            console.log(
+                chalk.cyan("\n╔" + "═".repeat(38) + "╗")
+            );
+
+            drawLine(
+                `Result: ${output}`,
+                chalk.green.bold
+            );
+
+            console.log(
+                chalk.cyan("╚" + "═".repeat(38) + "╝\n")
+            );
+
+            return askQuestion();
+        }
+    );
+
+    return;
+}
 
             // Invalid Choice
-            if (!["1", "2", "3", "4"].includes(choice)) {
+            if (!["1", "2", "3", "4", "5",].includes(choice)) {
                 console.log(
                     chalk.red(
                         "\n❌ Invalid choice. Try again.\n"
@@ -257,8 +288,14 @@ function askQuestion() {
                                     result = divide(num1, num2);
                                     symbol = "÷";
                                     break;
-                            }
 
+                                case "5":
+                                    result = power(num1, num2);
+                                    symbol = "^";
+                                    break;
+                            }
+                              
+    
                             const output =
                                 `${num1} ${symbol} ${num2} = ${result}`;
 
